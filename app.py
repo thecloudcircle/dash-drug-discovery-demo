@@ -4,11 +4,16 @@ import dash_html_components as html
 import dash_core_components as dcc
 import pandas as pd
 import flask
+from flask_cors import CORS
 import os
 
-server = flask.Flask('drug-discovery')
-app = dash.Dash('drug-discovery', server=server, url_base_pathname='/dash/gallery/drug-explorer/', csrf_protect=False)
-server.secret_key = os.environ.get('secret_key', 'secret')
+app = dash.Dash(
+    'drug-discovery',
+    url_base_pathname='/dash/gallery/drug-explorer/'
+)
+server = app.server
+CORS(server)
+
 
 df = pd.read_csv('small_molecule_drugbank.csv').drop(['Unnamed: 0'],axis=1)
 
@@ -16,6 +21,8 @@ if 'DYNO' in os.environ:
     app.scripts.append_script({
         'external_url': 'https://cdn.rawgit.com/chriddyp/ca0d8f02a1659981a0ea7f013a378bbd/raw/e79f3f789517deec58f41251f7dbb6bee72c44ab/plotly_ga.js'
     })
+    app.config.routes_pathname_prefix = '/dash/gallery/drug-explorer/'
+    app.config.requests_pathname_prefix = 'https://dash-drug-discovery-demo.herokuapp.com/dash/gallery/drug-explorer/'
 
 
 def add_markers( figure_data, molecules, plot_type = 'scatter3d' ):
