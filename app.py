@@ -14,7 +14,7 @@ df = pd.read_csv('small_molecule_drugbank.csv').drop(['Unnamed: 0'],axis=1)
 
 if 'DYNO' in os.environ:
     app.scripts.append_script({
-        'external_url': 'https://cdn.rawgit.com/chriddyp/ca0d8f02a1659981a0ea7f013a378bbd/raw/e79f3f789517deec58f41251f7dbb6bee72c44ab/plotly_ga.js'
+        'external_url': 'https://codepen.io/plotly/pen/BGyZNa.js'
     })
 
 def add_markers( figure_data, molecules, plot_type = 'scatter3d' ):
@@ -475,8 +475,7 @@ def display_molecule(hoverData):
 
 external_css = ["https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css",
                 "//fonts.googleapis.com/css?family=Raleway:400,300,600",
-                "//fonts.googleapis.com/css?family=Dosis:Medium",
-                "https://cdn.rawgit.com/plotly/dash-app-stylesheets/0e463810ed36927caf20372b6411690692f94819/dash-drug-discovery-demo-stylesheet.css"]
+                "//fonts.googleapis.com/css?family=Dosis:Medium"]
 
 
 for css in external_css:
